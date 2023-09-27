@@ -1,0 +1,32 @@
+rbt-insert-fix(node)
+    while color(node.parent) == RED                 // while node's parent is red, run the loop
+        if node.parent == node.parent.parent.left   // if node's parent is left child
+            uncle = node.parent.parent.right
+            if color(uncle) == RED
+                color(node.parent) = BLACK
+                color(uncle) = BLACK
+                color(node.parent.parent) = RED     // Change grandpa to RED
+                node = node.parent.parent           // Assign node to Grandpa
+            else
+                if node == node.parent.right        // If node is right child
+                    node = node.parent              // Set node to it's parent and left rotate
+                    left-rotate(node)               // i.e. target node will be parent and it's parent will be left child
+                color(node.parent) = BLACK          // change target node to black, but it's parent will remain red
+                color(node.parent.parent) = RED     // Change grandpa, i.e. target's new parent to RED, So now, grandpa & prev parent
+                                                    // is red and target node itself will be black
+                right-rotate(node.parent.parent)    // Right rotate with Grandpa
+        else
+            uncle = node.parent.parent.left
+            if color(uncle) == RED
+                color(node.parent) = BLACK
+                color(uncle) = BLACK
+                color(node.parent.parent) = RED     // Change Grandpa to RED
+                node = node.parent.parent           // Assign node to Grandpa
+            else
+                if node == node.parent.left         // If node is left child
+                    node = node.parent
+                    right-rotate(node)
+                color(node.parent) = BLACK
+                color(node.parent.parent) = RED     // Change Grandpa to RED
+                left-rotate(node.parent.parent)     // Left rotate with Grandpa
+    color(root) = BLACK
