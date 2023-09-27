@@ -19,7 +19,7 @@ func traverseInAscOrder(n *Node, cl chan *Node) {
 }
 
 // Post Order Traversal left->right->parent
-func traverseIterativePostOrder(root *Node) <-chan *Node {
+func traverseIterativePostOrder(tree *Tree, root *Node) <-chan *Node {
 	cl := make(chan *Node)
 	go func() {
 		stk := []*Node{root}
@@ -28,7 +28,7 @@ func traverseIterativePostOrder(root *Node) <-chan *Node {
 		for len(stk) > 0 {
 			tempNode = stk[len(stk)-1]
 			stk = stk[:len(stk)-1]
-			if tempNode == nil {
+			if tempNode == tree.null {
 				continue
 			}
 			if visited[tempNode] {
@@ -43,15 +43,15 @@ func traverseIterativePostOrder(root *Node) <-chan *Node {
 	return cl
 }
 
-func traverseIterative(root *Node) <-chan *Node {
+func traverseIterative(tree *Tree) <-chan *Node {
 	cl := make(chan *Node)
 	go func() {
-		stk := []*Node{root}
+		stk := []*Node{tree.root}
 		var tempNode *Node
 		for len(stk) > 0 {
 			tempNode = stk[0]
 			stk = stk[1:]
-			if tempNode != nil {
+			if tempNode != tree.null {
 				cl <- tempNode
 				stk = append(stk, tempNode.left, tempNode.right)
 			}

@@ -1,12 +1,15 @@
 package main
 
+import "fmt"
+
 func main() {
 
-	tree := Tree{}
-	testArr := []int{984, 899, 487, 641, 34, 501, 551, 286, 814, 935, 301, 822, 788, 918, 532, 901, 387, 837, 41, 378, 1, 153, 85, 176, 305, 955}
+	tree := GenerateTree()
+	testArr := []int{1, 2, 3, 4, 5, 6, 7}
 
 	for _, val := range testArr {
+		fmt.Println("Inserting", val)
 		tree.Insert(val)
 	}
-	verify_rbt_properties(&tree)
+	verify_rbt_properties(tree)
 }

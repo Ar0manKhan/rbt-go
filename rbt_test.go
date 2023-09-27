@@ -49,7 +49,7 @@ func TestRedBlackTreeInsertion(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			t.Logf("Running test for %s", tc.name)
 			// Create an empty Red-Black Tree
-			tree := Tree{} // Use your actual constructor function
+			tree := GenerateTree() // Use your actual constructor function
 
 			// Insert elements from the current test case's input slice
 			for _, value := range tc.input {
@@ -57,7 +57,7 @@ func TestRedBlackTreeInsertion(t *testing.T) {
 			}
 
 			// Verify the Red-Black Tree properties
-			if !verify_rbt_properties(&tree) {
+			if !verify_rbt_properties(tree) {
 				t.Errorf("Red-Black Tree properties violated after insertions")
 			} else {
 				t.Logf("Red-Black Tree properties passed for %s", tc.name)
@@ -80,13 +80,13 @@ func TestRedBlackTreeInsertionRandom(t *testing.T) {
 		// fmt.Println("Testing insertion of", input)
 
 		// Insert the integers into the Red-Black Tree
-		tree := Tree{}
+		tree := GenerateTree()
 		for _, x := range input {
 			tree.Insert(x)
 		}
 
 		// Check that the tree is valid
-		if !verify_rbt_properties(&tree) {
+		if !verify_rbt_properties(tree) {
 			t.Errorf("Tree is not valid after insertion of %v", input)
 		}
 	}
@@ -94,7 +94,7 @@ func TestRedBlackTreeInsertionRandom(t *testing.T) {
 
 func benchmarkInsert(n int, b *testing.B) {
 	// Create an empty Red-Black Tree
-	tree := Tree{}
+	tree := GenerateTree()
 
 	// Generate n random integers
 	input := rand.Perm(n)
