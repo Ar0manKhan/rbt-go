@@ -87,10 +87,8 @@ func (tree *Tree) insertFixup(z *Node) {
 				tree.leftRotate(z)
 			}
 			z.parent.colorIsRed = false
-			// if z.parent.parent != nil {
 			z.parent.parent.colorIsRed = true
 			tree.rightRotate(z.parent.parent)
-			// }
 		} else {
 			if uncle := z.parent.parent.left; uncle.colorIsRed {
 				z.parent.colorIsRed = false
@@ -104,10 +102,8 @@ func (tree *Tree) insertFixup(z *Node) {
 				tree.rightRotate(z)
 			}
 			z.parent.colorIsRed = false
-			// if z.parent.parent != nil {
 			z.parent.parent.colorIsRed = true
 			tree.leftRotate(z.parent.parent)
-			// }
 		}
 	}
 	tree.root.colorIsRed = false
